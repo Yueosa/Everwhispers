@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-from datetime import datetime
+import time
 import os
 import uuid
 
@@ -47,10 +47,27 @@ def save_messages(new_msg):
         json.dump(messages, f, ensure_ascii=False, indent=4)
 
 def del_messages(id):
+    # 加载原始消息列表
     message_list = load_messages()
+    
+    # 遍历查找需要删除的那一条
+    for msg in message_list:
+        if msg["id"] == id:
+            files = msg.get("files", {})
+            for file_type, file_rel_path in files.items():
+                if file_rel_path:
+                    file_path = os.path.join(UPLOAD_DIR, file_type + "s", os.path.basename(file_rel_path))
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+            break  # 一般只会有一条 ID 匹配
+
+    # 过滤掉要删除的留言
     message_list = [msg for msg in message_list if msg["id"] != id]
+    
+    # 重写 JSON 文件
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(message_list, f, ensure_ascii=False, indent=4)
+
 
 def name_list():
     name_list = load_messages()
@@ -114,7 +131,7 @@ with tab1:
             if submit:
                 if name.strip() and message.strip():
                     message_id = str(uuid.uuid4())
-                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                     files = {"image": None, "video": None, "audio": None}
 
                     # 文件保存
@@ -165,14 +182,15 @@ with tab1:
             st.markdown(
                 f"""
                 <div style='
-                    background-color: #f0f2f6;
-                    padding: 10px;
+                    padding: 1em;
                     border-radius: 10px;
-                    box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
                     margin-bottom: 10px;
+                    border: 1px solid rgba(128,128,128,0.2);
+                    background-color: rgba(240, 240, 240, 0.8);
+                    color: inherit;
                 '>
-                <strong>{msg['name']}</strong> 说：{msg['message']}<br>
-                <span style='font-size: 12px; color: gray;'>🕒 {msg['timestamp']}</span>
+                    <strong>{msg['name']}</strong> 说：{msg['message']}<br>
+                    <span style='font-size: 12px; opacity: 0.6;'>🕒 {msg['timestamp']}</span>
                 </div>
                 """,
                 unsafe_allow_html=True
