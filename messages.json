@@ -46,7 +46,7 @@
     {
         "id": "e5fc4ad0-3c81-410d-90d1-72f722340535",
         "name": "小恋",
-        "message": "测试不同大小的额图片",
+        "message": "测试图片上传",
         "timestamp": "2025-05-08 13:25:58",
         "files": {
             "image": "e5fc4ad0-3c81-410d-90d1-72f722340535_002.jpg",
@@ -66,32 +66,10 @@
         }
     },
     {
-        "id": "d4ef55fc-20b8-4f4f-936f-8c08760cc680",
-        "name": "小恋",
-        "message": "测试视频上传",
-        "timestamp": "2025-05-08 13:26:44",
-        "files": {
-            "image": null,
-            "video": "d4ef55fc-20b8-4f4f-936f-8c08760cc680_捏造陷阱NTR_12.mp4",
-            "audio": null
-        }
-    },
-    {
         "id": "e7e3af3a-d1f2-4b38-9386-65f2ad090d73",
         "name": "苒",
         "message": "杂鱼恋 你这个容器大小有问题啊",
         "timestamp": "2025-05-08 13:43:30",
-        "files": {
-            "image": null,
-            "video": null,
-            "audio": null
-        }
-    },
-    {
-        "id": "defc3b2c-9171-49a5-b960-1483f622663d",
-        "name": "小恋",
-        "message": "请大家不要传R18！",
-        "timestamp": "2025-05-08 13:49:34",
         "files": {
             "image": null,
             "video": null,
